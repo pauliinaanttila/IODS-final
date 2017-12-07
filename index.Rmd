@@ -5,7 +5,6 @@ email: "pauliina.anttila@helsinki.fi"
 date: "7 12 2017"
 output:
   html_document: default
-  theme: flatly
 ---
 
 ***

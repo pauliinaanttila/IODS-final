@@ -1,6 +1,7 @@
 ---
 title: "Introduction to Open Data Science - autumn 2017: Final Assignment"
-author: "Pauliina Anttila"
+author: "Pauliina Marjukka Anttila"
+email: "pauliina.anttila@helsinki.fi"
 date: "7 12 2017"
 output: html_document
 ---
