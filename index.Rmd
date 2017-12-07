@@ -1,8 +1,17 @@
 ---
 title: "Final assignment"
-author: "Pauliina Anttila"
+author: "Pauliina Marjukka Anttila"
+email: "pauliina.anttila@helsinki.fi"
 date: "7 12 2017"
-output: html_document
+output:
+  html_document: default
+  theme: flatly
 ---
 
-Creating the index.html file
+***
+  
+```{r child = "final_assignment.Rmd"}
+```
+  
+***
+  

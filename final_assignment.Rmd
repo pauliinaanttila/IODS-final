@@ -1,0 +1,30 @@
+---
+title: "Final assignment"
+author: "Pauliina Marjukka Anttila"
+email: "pauliina.anttila@helsinki.fi"
+date: "7 12 2017"
+output: html_document
+---
+
+# Research question (including hypotheses):
+
+# Link to the data wrangling script:
+
+# Description of the data and its variables:
+
+Where is the data from?
+What does it relate to?
+What do the variables represent?
+What has been done to the data before analysis?
+
+# Exploration of the data:
+
+Visually clear and interesting explorations of the variables of interest in the data, from the point of view of your research question. Include interpretations of the distributions and relationships of the variables. Use captions to draw the reader’s focus on the interesting parts of your tables and graphics.
+
+# Brief description of the method(s) you are using in your own words
+
+# Presentation of the results of your analysis including visualizations and summaries and a thorough interpretation of the results including a validation analysis of the method.
+
+# Conclusions and discussion
+
+# An ‘abstract’ at the beginning of the page with a summary of your analysis
