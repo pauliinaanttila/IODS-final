@@ -1,0 +1,8 @@
+---
+title: "Final assignment"
+author: "Pauliina Anttila"
+date: "7 12 2017"
+output: html_document
+---
+
+Creating the index.html file
