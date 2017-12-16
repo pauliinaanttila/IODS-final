@@ -1,5 +1,5 @@
 ---
-title: "Final assignment"
+title: "Final assignment: Crime rate in Boston area"
 author:
   - name: "Pauliina Marjukka Anttila"
     affiliation: "pauliina.anttila@helsinki.fi"
@@ -7,27 +7,154 @@ date: "16 12 2017"
 output: html_document
 ---
 
-linka to the data wrangling part
+# Abstract
 
-# Research question (including hypotheses):
+**In my final assignment, I've studied a dataset about housing values in the suburbs of Boston. My hypotheses were that crime rate per capita is more often high in towns where the lower status of the population (percent) is more common and also in towns where property-tax rate is lower. Through logistic regression I found out that indeed, crime rate is more often high in tows where the lower status of population is more common (OR 1.21, CI 1.16-1.26). To my surprise, the crime rate was more often high in areas with higher property-tax rate.**
 
-# Link to the data wrangling script:
+# Research question
 
-# Description of the data and its variables:
+**I'm going to study a dataset called 'Boston', which includes data about housing values in the suburbs of Boston. I'm going to concentrate especially on the crime rate of the towns.**
 
-Where is the data from?
-What does it relate to?
-What do the variables represent?
-What has been done to the data before analysis?
+**My hypotheses are:**
 
-# Exploration of the data:
+**1) Crime rate per capita is higher in towns where full-value property-tax rate per \$10,000 is lower.**
 
-Visually clear and interesting explorations of the variables of interest in the data, from the point of view of your research question. Include interpretations of the distributions and relationships of the variables. Use captions to draw the reader’s focus on the interesting parts of your tables and graphics.
+**2) Crime rate is more often high in towns where lower status of the population (percent) is more common.**
 
-# Brief description of the method(s) you are using in your own words
+# Data wrangling
 
-# Presentation of the results of your analysis including visualizations and summaries and a thorough interpretation of the results including a validation analysis of the method.
+**Here's a link to the data wrangling part of the final assignment:**
+
+<https://github.com/pauliinaanttila/IODS-final/blob/master/data_wrangling.R>
+
+# Description of the data and its variables
+
+**I am working with a dataset called 'Boston' from the MASS package. The original dataset contains 506 observations of 14 variables. The dataset is about housing values in the suburbs of Boston.**
+
+The original variables include the following:
+
+crim = per capita crime rate by town.
+
+zn = proportion of residential land zoned for lots over 25,000 sq.ft.
+
+indus = proportion of non-retail business acres per town.
+
+chas = Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).
+
+nox = nitrogen oxides concentration (parts per 10 million).
+
+rm = average number of rooms per dwelling.
+
+age = proportion of owner-occupied units built prior to 1940.
+
+dis = weighted mean of distances to five Boston employment centres.
+
+rad = index of accessibility to radial highways.
+
+tax = full-value property-tax rate per \$10,000.
+
+ptratio = pupil-teacher ratio by town.
+
+black = 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town.
+
+lstat = lower status of the population (percent).
+
+medv = median value of owner-occupied homes in \$1000s.
+
+
+During the data wrangling I created two new variables. The first one is 'crime', which is a catecorigal variable created from the 'crim' variable (4 categories (low, medium low, medium high, high), created using quantiles). The 'crime_high' variable is a binary variable, which was created from the 'crime' variable so that crime_high = TRUE is comparable 'crime' variable = 4 (the highest quantile).
+
+```{r}
+Boston_crime <- read.csv(file="~/Documents/GitHub/IODS-final/Boston_crime.csv", header = TRUE) # reading the wrangled data into R
+str(Boston_crime) # exploring the structure of the data
+```
+
+```{r}
+dim(Boston_crime) # exploring the dimensions of the data
+```
+
+# Exploration of the data
+
+```{r}
+summary(Boston_crime)
+```
+
+**From the summary of the data, we can see that there are 127 observations with high crime rate (in the highest quantile). The per capita crime rate per town varies from 0.006-90.0 with the median of 0.26.**
+
+```{r  fig.height=9, fig.width=9}
+library(MASS)
+data("Boston")
+library(GGally)
+library(ggplot2)
+ggpairs(Boston)
+```
+
+**This plot is created using the original 'Boston' dataset. Accoring to the plot, there seems to be a positive correlation between crime rate and lower status of the population. There is also a positive correlation between the tax variable (full-value property-tax rate per \$10,000) and crime rate.**
+
+```{r}
+# Creating a correlation plot from the data:
+
+library(dplyr)
+library(corrplot)
+cor_matrix<-cor(Boston) %>% round(2)
+cor_matrix
+corrplot(cor_matrix, method="circle", type = "lower", cl.pos = "b", tl.pos = "d", tl.cex = 1.0)
+```
+
+**According to the correlation plot, crime rate per capita by town is positively correlated with the variables 'tax' and 'lstat'. According to the correlation plot, there is going to be collinearity between 'tax' and 'lstat', that is why I'm going to do the logistic regression with both separately and also togehter.**
+
+# Brief description of logistic regression
+
+**I am going to examine the association between high crime rate, and property-tax rate and lower status of the population. I'm going to use a statistical method called logistic regression. Logistic regression is a regression model where the dependent variable is categorical. Like all regression analyses, the logistic regression is a predictive analysis. Logistic regression is used to describe data and to explain the relationship between one dependent binary variable and one or more nominal, ordinal, interval or ratio-level independent variables.** 
+
+# Results
+
+**A logistic regression model with the dependent variable being 'crime_high' (a binominal variable) and the explanatory variables being 'tax' and 'lstat':**
+
+```{r}
+model1 <- glm(formula = crime_high ~ tax + lstat, data = Boston_crime, family = "binomial")
+summary(model1)
+```
+
+```{r}
+coef(model1)
+OR <- coef(model1) %>% exp
+CI <- confint(model1) %>% exp # calculating the odds ratios and confidence intervals
+cbind(OR, CI)
+```
+
+**Accoring to the model, crime rate seems to be more often high in areas with higher tax rate for properties (odds ratio 1.025, confidence interval 1.020-1.033). The crime rate is more often high in areas with lower status of the population (OR 1.099, CI 1.009-1.201).**
+
+```{r}
+model2 <- glm(formula = crime_high ~ tax, data = Boston_crime, family = "binomial")
+summary(model2)
+```
+
+```{r}
+coef(model2)
+OR2 <- coef(model2) %>% exp
+CI2 <- confint(model2) %>% exp # calculating the odds ratios and confidence intervals
+cbind(OR2, CI2)
+```
+
+**In this model as well, higher property tax-rate is associated with higher crime rate.**
+
+```{r}
+model3 <- glm(formula = crime_high ~ lstat, data = Boston_crime, family = "binomial")
+summary(model3)
+```
+
+```{r}
+coef(model3)
+OR3 <- coef(model3) %>% exp
+CI3 <- confint(model3) %>% exp # calculating the odds ratios and confidence intervals
+cbind(OR3, CI3)
+```
+
+**In this model with the lower status of the population being the only explanatory variable, the odds ratio is higher (OR 1.207, CI 1.164-1.256) than in the first analysis with the two explanatory variables.**
 
 # Conclusions and discussion
 
-# An ‘abstract’ at the beginning of the page with a summary of your analysis
+**Lower status of population is associated with crime rate so that every 1 % rise in the proportion of lower status people raises the odds for high crime rate with 10-21 % (depending on the logistic model used).**
+
+**Property-tax rate is associated with crime rate so that higher taxing raises the odds for high crime rate a bit. This result was a bit surprising since I thought there might be more criminality in areas where there's low taxing and maybe smaller incomes. It seems now, that criminality is higher in the wealthy areas.**

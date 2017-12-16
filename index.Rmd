@@ -1,5 +1,5 @@
 ---
-title: "Final assignment"
+title: "Final assignment: Crime rate in Boston area"
 author: 
   - name: "Pauliina Marjukka Anttila"
     affiliation: "pauliina.anttila@helsinki.fi"

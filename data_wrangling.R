@@ -24,10 +24,11 @@ Boston_crimecat <- data.frame(Boston, crime) # adding the new 'crime' variable t
 str(Boston_crimecat)
 View(Boston_crimecat)
 
-# I'm going to perform some regression analysis (both linear and logistic). For the logistic regression I need a binary target variable from 'crime' variable. I'm especially interested in high crime rate, so I will create a variable 'crime_high', which is true if crime = 4 i.e. high.
+# I'm going to perform some regression analysis. For the logistic regression I need a binary target variable from 'crime' variable. I'm especially interested in high crime rate, so I will create a variable 'crime_high', which is true if crime = 4 i.e. high.
 
-Boston_crime <- mutate(Boston_crimecat, crime_high = crime == 4)
+Boston_crime <- mutate(Boston_crimecat, crime_high = (crime=="high"))
 str(Boston_crime) # 506 observation of 16 variables (two new ones included)
+View(Boston_crime)
 
 # Writing a CSV file of the wrangled dataset:
 
