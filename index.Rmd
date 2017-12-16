@@ -1,10 +1,19 @@
 ---
 title: "Final assignment"
-author: "Pauliina Marjukka Anttila"
-email: "pauliina.anttila@helsinki.fi"
-date: "7 12 2017"
+author: 
+  - name: "Pauliina Marjukka Anttila"
+    affiliation: "pauliina.anttila@helsinki.fi"
+date: "16 12 2017"
 output:
-  html_document: default
+  html_document:
+    theme: flatly
+    toc: true
+    toc_depth: 2
+    fig_caption: true
+    fig_width: 6
+    fig_height: 4
+    code_folding: hide
+
 ---
 
 ***

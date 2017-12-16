@@ -1,10 +1,13 @@
 ---
 title: "Final assignment"
-author: "Pauliina Marjukka Anttila"
-email: "pauliina.anttila@helsinki.fi"
-date: "7 12 2017"
+author:
+  - name: "Pauliina Marjukka Anttila"
+    affiliation: "pauliina.anttila@helsinki.fi"
+date: "16 12 2017"
 output: html_document
 ---
+
+linka to the data wrangling part
 
 # Research question (including hypotheses):
 

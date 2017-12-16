@@ -10,6 +10,6 @@ output: html_document
 
 This repository was created for the final assignment of the course *Introduction to Open Data Science - autumn 2017*. In the final assignment we are supposed to wrangle and analyze some data with the tricks we learned during this marvellous course.
 
-Here is a link to my GitHub repository:
+Here is a link to my GitHub web page:
 
 <https://pauliinaanttila.github.io/IODS-final/>
