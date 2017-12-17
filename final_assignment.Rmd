@@ -89,10 +89,10 @@ library(ggplot2)
 ggpairs(Boston)
 ```
 
-**This plot is created using the original 'Boston' dataset. Accoring to the plot, there seems to be a positive correlation between crime rate and lower status of the population. There is also a positive correlation between the tax variable (full-value property-tax rate per \$10,000) and crime rate.**
+**This plot is created using the original 'Boston' dataset. According to the plot, there seems to be a positive correlation between crime rate and lower status of the population. There is also a positive correlation between the tax variable (full-value property-tax rate per \$10,000) and crime rate.**
 
 ```{r}
-# Creating a correlation plot from the data:
+# Creating a correlation plot from the original 'Boston' data (contains only numeric variables):
 
 library(dplyr)
 library(corrplot)
